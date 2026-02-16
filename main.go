@@ -2,19 +2,34 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 
 	"ru.prostoyartemka.mystm32/compiler"
 )
 
-const INPUT_FILE = "code/input.s"
-const OUTPUT_FILE = "code/out.bin"
-
 func main() {
 	var output []byte
 
-	file, err := os.Open(INPUT_FILE)
+	args := os.Args
+
+	if len(args) == 1 {
+
+		fmt.Println("Usage:")
+		fmt.Println("\tcompiler <path_to_input> <path_to_output>")
+
+		return
+	}
+
+	if len(args) != 3 {
+		return
+	}
+
+	inputPath := args[1]
+	outputPath := args[2]
+
+	file, err := os.Open(inputPath)
 
 	if err != nil {
 		log.Fatal(err)
@@ -49,7 +64,7 @@ func main() {
 
 	// Write output
 
-	file, err = os.Create(OUTPUT_FILE)
+	file, err = os.Create(outputPath)
 
 	if err != nil {
 		log.Fatal(err)
@@ -58,4 +73,6 @@ func main() {
 	file.Write(output)
 
 	file.Close()
+
+	fmt.Println("Compiled succsefuly to", outputPath)
 }

@@ -1,7 +1,6 @@
 package compiler
 
 import (
-	"fmt"
 	"maps"
 	"regexp"
 	"slices"
@@ -107,8 +106,6 @@ func GetTokens(words []string) []Token {
 			continue
 		}
 	}
-
-	fmt.Println(words, "=", tokens)
 
 	return tokens
 }
